@@ -1,5 +1,4 @@
 <template>
-  <transition name="slide">
   <div class="new-order">
     <mt-header fixed title="发起邀约">
       <router-link to="/homepage" slot="left">
@@ -39,7 +38,6 @@
       <mt-button class="submit-btn" type="primary" @click="submit">提交</mt-button>
     </div>
   </div>
-  </transition>
 </template>
 
 <script>
@@ -173,16 +171,9 @@ export default {
 <style lang="scss">
   @import '../../styles/variables.scss';
   .new-order {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     background-color: $backColor;
     .order-form {
       padding: 60px 10px 0;
-      height: 100vh;
       /* 下面的css我自己也乱了.... */
       .mint-cell {
         margin-bottom: 10px;
@@ -229,11 +220,5 @@ export default {
         padding: 10px;
       }
     }
-  }
-  .slide-enter-active, .slide-leave-active {
-    transition: all 0.3s;
-  }
-  .slide-enter, .slide-leave-to {
-    transform: translate3d(100%, 0, 0);
   }
 </style>

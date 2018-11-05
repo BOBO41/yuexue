@@ -1,48 +1,46 @@
 <template>
-  <transition name="modify-info-fade">
-    <div class="modify-info">
-      <mt-header fixed title="修改个人信息">
-        <router-link to="/user-info" slot="left">
-          <mt-button icon="back"></mt-button>
-        </router-link>
-      </mt-header>
-      <div class="modify-info-form">
-        <mt-field label="昵称" v-model="userInfo.username"></mt-field>
-        <mt-cell title="性别" class="form-ceil">
-          <span v-if="userInfo.gender === gender.UNKNOWN">未知</span>
-          <span v-if="userInfo.gender === gender.MALE">男</span>
-          <span v-if="userInfo.gender === gender.FEMALE">女</span>
-          <mt-button @click="genderActionVisible = true" plain>▶</mt-button>
-        </mt-cell>
-        <mt-actionsheet
-          :actions="[
-            { name: '男', method: setValue.bind(null, 'gender', 'male') },
-            { name: '女', method: setValue.bind(null, 'gender', 'female') }
-          ]"
-          v-model="genderActionVisible">
-        </mt-actionsheet>
-        <mt-field label="年龄" v-model="userInfo.age" type="number"></mt-field>
-        <mt-cell title="城市" class="form-ceil">
-          <span>{{userInfo.city}}</span>
-          <mt-button @click="cityPopupVisible = true" plain>▶</mt-button>
-        </mt-cell>
-        <mt-popup
-          v-model="cityPopupVisible"
-          class="mint-popup"
-          position="bottom">
-          <mt-picker :slots="slots" @change="onValuesChange">
-          </mt-picker>
-          <mt-button size="small" class="submit-btn" @click="selectCity">确 定</mt-button>
-        </mt-popup>
-        <mt-field label="邮箱" v-model="userInfo.email" type="email"></mt-field>
-        <mt-field label="手机号" v-model="userInfo.tel" type="tel"></mt-field>
-        <mt-field label="微信号" v-model="userInfo.wechat"></mt-field>
-        <mt-field label="QQ号" v-model="userInfo.qq" type="number"></mt-field>
-        <mt-field label="备注" type="textarea" rows="3" v-model="userInfo.remark"></mt-field>
-        <mt-button class="submit-btn" type="primary" @click="submit">确 定</mt-button>
-      </div>
+  <div class="modify-info">
+    <mt-header fixed title="修改个人信息">
+      <router-link to="/user-info" slot="left">
+        <mt-button icon="back"></mt-button>
+      </router-link>
+    </mt-header>
+    <div class="modify-info-form">
+      <mt-field label="昵称" v-model="userInfo.username"></mt-field>
+      <mt-cell title="性别" class="form-ceil">
+        <span v-if="userInfo.gender === gender.UNKNOWN">未知</span>
+        <span v-if="userInfo.gender === gender.MALE">男</span>
+        <span v-if="userInfo.gender === gender.FEMALE">女</span>
+        <mt-button @click="genderActionVisible = true" plain>▶</mt-button>
+      </mt-cell>
+      <mt-actionsheet
+        :actions="[
+          { name: '男', method: setValue.bind(null, 'gender', 'male') },
+          { name: '女', method: setValue.bind(null, 'gender', 'female') }
+        ]"
+        v-model="genderActionVisible">
+      </mt-actionsheet>
+      <mt-field label="年龄" v-model="userInfo.age" type="number"></mt-field>
+      <mt-cell title="城市" class="form-ceil">
+        <span>{{userInfo.city}}</span>
+        <mt-button @click="cityPopupVisible = true" plain>▶</mt-button>
+      </mt-cell>
+      <mt-popup
+        v-model="cityPopupVisible"
+        class="mint-popup"
+        position="bottom">
+        <mt-picker :slots="slots" @change="onValuesChange">
+        </mt-picker>
+        <mt-button size="small" class="submit-btn" @click="selectCity">确 定</mt-button>
+      </mt-popup>
+      <mt-field label="邮箱" v-model="userInfo.email" type="email"></mt-field>
+      <mt-field label="手机号" v-model="userInfo.tel" type="tel"></mt-field>
+      <mt-field label="微信号" v-model="userInfo.wechat"></mt-field>
+      <mt-field label="QQ号" v-model="userInfo.qq" type="number"></mt-field>
+      <mt-field label="备注" type="textarea" rows="3" v-model="userInfo.remark"></mt-field>
+      <mt-button class="submit-btn" type="primary" @click="submit">确 定</mt-button>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
@@ -185,12 +183,6 @@ export default {
 <style lang="scss">
   @import '../../styles/variables.scss';
   .modify-info {
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0;
-    right: 0;
-    z-index: 50;
     background-color: #fff;
     color: #484848;
     overflow-y: auto;
@@ -229,11 +221,5 @@ export default {
       text-align: center;
       padding: 10px;
     }
-  }
-  .modify-info-fade-enter-active, .modify-info-fade-leave-active {
-    transition: all 0.3s;
-  }
-  .modify-info-fade-enter, .modify-info-fade-leave-to {
-    transform: translateX(100%);
   }
 </style>

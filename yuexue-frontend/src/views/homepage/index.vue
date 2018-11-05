@@ -64,7 +64,7 @@ export default {
         Toast('请先填写至少一种联系方式才可以发起邀约')
         return
       }
-      this.$router.push('/homepage/new-order')
+      this.$router.push('/new-order')
     }
   },
   created() {

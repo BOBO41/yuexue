@@ -110,6 +110,7 @@ import { getInterval } from '@/utils'
 import { gender, orderStatus } from '@/constant'
 
 export default {
+  name: 'OrderDetail',
   data() {
     return {
       order: {},

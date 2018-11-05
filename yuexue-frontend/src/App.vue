@@ -1,6 +1,18 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <!--<transition :name="transitionName">-->
+      <!--<keep-alive>-->
+        <!--<router-view ></router-view>-->
+      <!--</keep-alive>-->
+    <!--</transition>-->
+
+    <transition :name="transitionName">
+      <keep-alive exclude="UserOrder,OrderDetail">
+        <router-view class="router-view" ></router-view>
+      </keep-alive>
+    </transition>
+
+
     <Loading v-if="$root.$data.loading"></Loading>
   </div>
 </template>
@@ -14,11 +26,16 @@ export default {
   components: {
     Loading
   },
+  data() {
+    return {
+      transitionName: ''
+    }
+  },
   methods: {
     /**
      * 检查登录状态
      */
-    checkLogin() {
+    checkLogin(to, from) {
       if (!this.getCookie('koa:sess')) {
         // 如果没有登录状态则跳转到登录页
         this.$router.push('/login')
@@ -46,16 +63,67 @@ export default {
           this.$root.$data.setUser(res.data)
         }
       })
+    },
+    getRouteDeep(path) {
+      if (path === '/homepage' || path === '/order-list' || path === '/user-info') return 1
+      if (/^\/list-order-detail\/\d+$/.test(path)) return 2
+      if (/^\/user-info\/user-order\/order-detail\/\d+$/.test(path)) return 2
+      if (path === '/user-info/user-order') return 2
     }
   },
   created() {
     this.checkLogin() && this.getLoginUser()
   },
   watch: {
-    '$route': 'checkLogin'
+    '$route' (to, from) {
+      this.checkLogin()
+//      let toPath = to.path
+//      let fromPath = from.path
+//      // 登录页不做跳转样式
+//      if (toPath === '/login' || fromPath === '/login') return
+      console.log(to)
+      console.log(from)
+      if (!to.meta.index || !from.meta.index) {
+        this.transitionName = 'slide-none'
+      } else if (to.meta.index > from.meta.index) {
+        this.transitionName = 'slide-left'
+      } else if (to.meta.index < from.meta.index) {
+        this.transitionName = 'slide-right'
+      } else {
+        this.transitionName = 'slide-none'
+      }
+    }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .router-view {
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+    transition: all .5s ;
+  }
+  .slide-left-enter, .slide-right-leave-active {
+    opacity: 0;
+    -webkit-transform: translate(100%, 0);
+    transform: translate(100%, 0);
+  }
+  .slide-left-leave-active, .slide-right-enter {
+    opacity: 0;
+    -webkit-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+  }
+  .slide-none-leave-active {
+    opacity: 0;
+    display: none;
+  }
+  .slide-none-enter {
+    display: inline;
+  }
+}
 </style>

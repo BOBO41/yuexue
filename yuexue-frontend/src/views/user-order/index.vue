@@ -33,6 +33,7 @@ import Toast from '@/components/toast'
 import { getInterval } from '@/utils'
 
 export default {
+  name: 'UserOrder',
   data() {
     return {
       orderList: []
@@ -43,7 +44,7 @@ export default {
       this.$router.back()
     },
     goDetail(id) {
-      this.$router.push('/user-info/user-order/order-detail/' + id)
+      this.$router.push('/user-order-detail/' + id)
     },
     fetch() {
       this.$root.$data.setLoading(true)

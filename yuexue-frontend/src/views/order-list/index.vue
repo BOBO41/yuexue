@@ -25,7 +25,7 @@
         <i class="iconfont icon-tabshouqi" @click="toTop"></i>
       </div>
     </template>
-    <router-view></router-view>
+    <!--<router-view></router-view>-->
     <app-footer class="main-footer"></app-footer>
   </div>
 </template>
@@ -54,7 +54,7 @@ export default {
       smoothScrollTo()
     },
     goDetail(id) {
-      this.$router.push(`/order-list/order-detail/${id}`)
+      this.$router.push(`/list-order-detail/${id}`)
     },
     fetch() {
       this.$root.$data.setLoading(true)

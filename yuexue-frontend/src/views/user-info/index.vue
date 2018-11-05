@@ -88,14 +88,14 @@ export default {
     userCreated() {
       let id = this.userInfo.id
       this.$router.push({
-        path: `/user-info/user-order`,
+        path: `/user-order`,
         query: { creatorId: id }
       })
     },
     userReceived() {
       let id = this.userInfo.id
       this.$router.push({
-        path: `/user-info/user-order`,
+        path: `/user-order`,
         query: { receiverId: id }
       })
     },
@@ -105,7 +105,7 @@ export default {
       logout().then(() => { this.$router.push('/login') })
     },
     modifyInfo(userId) {
-      this.$router.push('/user-info/modify-info/' + this.userInfo.id)
+      this.$router.push('/modify-info/' + this.userInfo.id)
     },
     fetch() {
       getUser().then(res => {
